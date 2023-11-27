@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/pos_1"
+            android:title="Home" />
+        <!--        <item-->
+        <!--            android:id="@+id/nav_list1_fragment"-->
+        <!--            android:icon="@drawable/pos_2"-->
+        <!--            android:title="@string/menu_list1_fragment" />-->
+        <item
+            android:id="@+id/nav_list2_fragment"
+            android:icon="@drawable/pos_2"
+            android:title="menu list2 fragment" />
+        <item
+            android:id="@+id/nav_view_pager_fragment"
+            android:icon="@drawable/pos_3"
+            android:title="Menu Viepager" />
+    </group>
+</menu>

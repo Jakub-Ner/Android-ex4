@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Exercise04</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Jakub Ner</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Add Item</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_list1_fragment">List1</string>
+    <string name="menu_list2_fragment">List2</string>
+    <string name="menu_view_pager_fragment">View Pager</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_layout_description">Tabs for ViewPager</string>
+    <string name="mnu_view_item_info">Item Info</string>
+    <string name="mnu_view_add_item_info">Add info</string>
+</resources>
