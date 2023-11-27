@@ -52,7 +52,8 @@ class ItemInfoFragment : Fragment() {
                 checkBoxItemType.isChecked = dataItem.item_checked
 
                 // Example of using another TextView
-                textViewItemChecked.text = "Item Type: ${if (dataItem.item_type) "Bus" else "Plane"}"
+                textViewItemChecked.text =
+                    "Item Type: ${if (dataItem.item_type) "Bus" else "Plane"}"
             }
         } else {
             binding.textViewItemName.text = "Item information not available"

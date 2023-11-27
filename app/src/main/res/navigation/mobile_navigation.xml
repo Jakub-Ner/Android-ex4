@@ -21,7 +21,7 @@
         android:id="@+id/nav_list2_fragment"
         android:name="com.example.exercise04.fragment2.List2Fragment"
         android:label="@string/menu_list2_fragment"
-        tools:layout="@layout/fragment_list2" >
+        tools:layout="@layout/fragment_list2">
         <action
             android:id="@+id/action_list2_to_item_info"
             app:destination="@id/nav_item_info_fragment" />

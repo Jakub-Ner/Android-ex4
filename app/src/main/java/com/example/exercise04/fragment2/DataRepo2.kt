@@ -7,10 +7,10 @@ class DataRepo2 {
     private val LIST_SIZE = 3
     private lateinit var dataList: MutableList<DataItem>
 
-    companion object{
+    companion object {
         private var INSTANCE: DataRepo2? = null
         fun getInstance(): DataRepo2 {
-            if(INSTANCE == null){
+            if (INSTANCE == null) {
                 INSTANCE = DataRepo2()
             }
 
@@ -18,7 +18,7 @@ class DataRepo2 {
         }
     }
 
-    fun getData() : MutableList<DataItem> {
+    fun getData(): MutableList<DataItem> {
         return dataList
     }
 
@@ -32,6 +32,6 @@ class DataRepo2 {
     }
 
     init {
-        dataList = MutableList(LIST_SIZE) { i -> DataItem(i)}
+        dataList = MutableList(LIST_SIZE) { i -> DataItem(i) }
     }
 }

@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.exercise04.DataRepo
 import com.example.exercise04.databinding.FragmentList1Binding
 
 class List1Fragment : Fragment() {

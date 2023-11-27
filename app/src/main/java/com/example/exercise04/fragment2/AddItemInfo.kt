@@ -33,7 +33,7 @@ class AddItemInfoFragment : Fragment() {
             val itemChecked = binding.checkBoxItemType.isChecked
             val itemType = binding.editTextItemType.text.toString()
 
-            val dataItem = DataItem(itemName, itemValue,  itemChecked,  itemType)
+            val dataItem = DataItem(itemName, itemValue, itemChecked, itemType)
 
             displayItemInfo(dataItem)
         }

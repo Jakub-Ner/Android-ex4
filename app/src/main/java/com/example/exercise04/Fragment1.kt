@@ -34,9 +34,10 @@ class Fragment1 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<View>(R.id.f1_btn).setOnClickListener{ _ ->
+        view.findViewById<View>(R.id.f1_btn).setOnClickListener { _ ->
             val value = view.findViewById<RatingBar>(R.id.ratingBar).rating
-            parentFragmentManager.setFragmentResult("msgfromchild",
+            parentFragmentManager.setFragmentResult(
+                "msgfromchild",
                 bundleOf("msg1" to ("value from child = $value"))
             )
         }

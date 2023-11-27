@@ -5,21 +5,19 @@
     android:id="@+id/constraintLayoutF1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment1"
     android:layout_gravity="center"
-    >
+    tools:context=".Fragment1">
 
     <TextView
         android:id="@+id/tv_fragment1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fragment 1"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
         android:id="@+id/ratingBar"

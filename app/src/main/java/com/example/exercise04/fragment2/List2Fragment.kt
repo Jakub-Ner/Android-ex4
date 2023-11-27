@@ -41,7 +41,7 @@ class List2Fragment : Fragment() {
         return _binding.root
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        inflater.inflate(R.menu.main, menu)
 //        super.onCreateOptionsMenu(menu, inflater)
 //    }
@@ -53,6 +53,7 @@ class List2Fragment : Fragment() {
                 navController.navigate(destinationId)
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -68,8 +69,10 @@ class List2Fragment : Fragment() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-            val viewBinding = ListRowBinding.inflate(LayoutInflater.from(parent.context),
-                parent, false)
+            val viewBinding = ListRowBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
             return MyViewHolder(viewBinding)
         }
 
@@ -94,9 +97,11 @@ class List2Fragment : Fragment() {
             holder.cBox.setOnClickListener { v ->
                 if ((v as CheckBox).isChecked) data[position].item_checked = true
                 else data[position].item_checked = false
-                Toast.makeText(requireContext(),
+                Toast.makeText(
+                    requireContext(),
                     "Selected/Unselected: " + (position + 1),
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             when (data[position].item_type) {
                 false -> holder.img.setImageResource(R.drawable.ic_list_1)

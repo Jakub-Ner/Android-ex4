@@ -1,10 +1,10 @@
 package com.example.exercise04
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,15 +29,18 @@ class ViewPagerFragment : Fragment() {
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
 
 
-        TabLayoutMediator(tabLayout, viewPager, object : TabLayoutMediator.TabConfigurationStrategy {
-            override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+        TabLayoutMediator(
+            tabLayout,
+            viewPager,
+            object : TabLayoutMediator.TabConfigurationStrategy {
+                override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
 
-                when (position) {
-                    0 -> tab.text = "Tab 1"
-                    1 -> tab.text = "Tab 2"
+                    when (position) {
+                        0 -> tab.text = "Tab 1"
+                        1 -> tab.text = "Tab 2"
+                    }
                 }
-            }
-        }).attach()
+            }).attach()
 
         return view
     }

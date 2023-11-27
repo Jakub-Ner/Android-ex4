@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewPagerFragment"
-    >
+    tools:context=".ViewPagerFragment">
 
     <!-- App bar with tabs -->
     <com.google.android.material.appbar.AppBarLayout
@@ -15,10 +14,9 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/tab_layout_description"
-            />
-<!--            app:tabGravity="fill"-->
-<!--            app:tabMode="fixed" />-->
+            android:contentDescription="@string/tab_layout_description" />
+        <!--            app:tabGravity="fill"-->
+        <!--            app:tabMode="fixed" />-->
 
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -1,6 +1,5 @@
 <!-- res/layout/fragment_add_item_info.xml -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,27 +9,26 @@
         android:id="@+id/editTextItemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Item Name"/>
+        android:hint="Item Name" />
 
     <EditText
         android:id="@+id/editTextItemValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="Item Value"/>
+        android:hint="Item Value"
+        android:inputType="numberDecimal" />
 
     <CheckBox
         android:id="@+id/checkBoxItemType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Item Type"/>
+        android:text="Item Type" />
 
     <EditText
         android:id="@+id/editTextItemType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Item Type"/>
-
+        android:hint="Item Type" />
 
 
     <TextView
@@ -38,26 +36,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="Item Name: "/>
+        android:text="Item Name: " />
 
     <TextView
         android:id="@+id/textViewItemValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Item Value: "/>
+        android:text="Item Value: " />
 
     <RatingBar
         android:id="@+id/ratingBarItemValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/textViewItemChecked"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="Item Type: "/>
+        android:text="Item Type: " />
 
     <Button
         android:id="@+id/saveButton"
