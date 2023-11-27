@@ -1,6 +1,7 @@
-package com.example.exercise04.ui.Fragment2
+package com.example.exercise04.fragment2
 
 import com.example.exercise04.DataItem
+
 
 class DataRepo2 {
     private val LIST_SIZE = 3
@@ -8,7 +9,7 @@ class DataRepo2 {
 
     companion object{
         private var INSTANCE: DataRepo2? = null
-        fun getInstance(): DataRepo2{
+        fun getInstance(): DataRepo2 {
             if(INSTANCE == null){
                 INSTANCE = DataRepo2()
             }

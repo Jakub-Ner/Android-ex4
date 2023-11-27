@@ -1,4 +1,4 @@
-package com.example.exercise04.ui.Fragment2
+package com.example.exercise04.fragment2
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.example.exercise04.databinding.FragmentAddItemInfoBinding
 import com.example.exercise04.DataItem
 import com.example.exercise04.R
+import com.example.exercise04.databinding.FragmentAddItemInfoBinding
 
 class AddItemInfoFragment : Fragment() {
 

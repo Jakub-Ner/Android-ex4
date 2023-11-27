@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.exercise04.ui.home.HomeFragment"
+        android:name="com.example.exercise04.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_list2_fragment"
-        android:name="com.example.exercise04.ui.Fragment2.List2Fragment"
+        android:name="com.example.exercise04.fragment2.List2Fragment"
         android:label="@string/menu_list2_fragment"
         tools:layout="@layout/fragment_list2" >
         <action
@@ -32,18 +32,18 @@
 
     <fragment
         android:id="@+id/nav_view_pager_fragment"
-        android:name="com.example.exercise04.ui.ViewPager.ViewPagerFragment"
+        android:name="com.example.exercise04.ViewPagerFragment"
         android:label="@string/menu_view_pager_fragment"
         tools:layout="@layout/fragment_view_pager" />
 
     <fragment
         android:id="@+id/nav_item_info_fragment"
-        android:name="com.example.exercise04.ui.Fragment2.ItemInfoFragment"
+        android:name="com.example.exercise04.fragment2.ItemInfoFragment"
         android:label="@string/mnu_view_item_info"
         tools:layout="@layout/fragment_item_info" />
     <fragment
         android:id="@+id/nav_add_item_fragment"
-        android:name="com.example.exercise04.ui.Fragment2.AddItemInfoFragment"
+        android:name="com.example.exercise04.fragment2.AddItemInfoFragment"
         android:label="@string/mnu_view_add_item_info"
         tools:layout="@layout/fragment_add_item_info" />
 

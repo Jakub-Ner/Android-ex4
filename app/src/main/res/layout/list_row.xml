@@ -14,7 +14,7 @@
             android:layout_width="114dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/header_icon" />
+            app:srcCompat="@drawable/main_img" />
     </LinearLayout>
 
     <LinearLayout

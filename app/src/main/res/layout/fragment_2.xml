@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayoutF2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ViewPager.Fragment2">
+    tools:context=".Fragment2">
 
 
     <TextView

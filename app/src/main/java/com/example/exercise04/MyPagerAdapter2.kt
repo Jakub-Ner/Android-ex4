@@ -1,4 +1,4 @@
-package com.example.exercise04.ui.ViewPager
+package com.example.exercise04
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -13,8 +13,8 @@ class MyPagerAdapter2(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     override fun createFragment(position: Int): Fragment {
         // Return the proper fragment for each position value
         return when (position) {
-            0 -> Fragment1.newInstance("f1","page 1")
-            1 -> Fragment2.newInstance("f2","page 2")
+            0 -> Fragment1.newInstance("f1", "page 1")
+            1 -> Fragment2.newInstance("f2", "page 2")
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }

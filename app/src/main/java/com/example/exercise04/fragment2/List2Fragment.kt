@@ -1,4 +1,4 @@
-package com.example.exercise04.ui.Fragment2
+package com.example.exercise04.fragment2
 
 import android.os.Bundle
 import android.view.LayoutInflater
