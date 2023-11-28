@@ -41,11 +41,11 @@ class Fragment2 : Fragment() {
         val infoField: EditText = view.findViewById(R.id.infoField)
 
         invitationField.addTextChangedListener {
-            sharedViewModel.updateText(it.toString())
+            sharedViewModel.updateText2(it.toString())
         }
 
         infoField.addTextChangedListener {
-            sharedViewModel.updateText2(it.toString())
+            sharedViewModel.updateText(it.toString())
         }
 
     }

@@ -114,8 +114,6 @@ class List2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ...
-
         val args = arguments
         if (args != null) {
             val dataItem = args.getSerializable("data_item_key_2") as? DataItem

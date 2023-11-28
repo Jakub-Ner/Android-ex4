@@ -36,8 +36,8 @@ class ViewPagerFragment : Fragment() {
                 override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
 
                     when (position) {
-                        0 -> tab.text = "Tab 1"
-                        1 -> tab.text = "Tab 2"
+                        0 -> tab.text = "Fragment 1"
+                        1 -> tab.text = "Edit Home"
                     }
                 }
             }).attach()

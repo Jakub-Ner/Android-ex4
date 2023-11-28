@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_list2_fragment, R.id.nav_view_pager_fragment
             ), drawerLayout
         )
-//        R.id.nav_list1_fragment,
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
