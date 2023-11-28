@@ -17,8 +17,6 @@ class Fragment2 : Fragment() {
     private var param2: String? = null
     private lateinit var sharedViewModel: SharedViewModel
 
-    // Get a reference to the shared HomeViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -31,7 +29,6 @@ class Fragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_2, container, false)
     }
 
@@ -43,7 +40,6 @@ class Fragment2 : Fragment() {
         val invitationField: EditText = view.findViewById(R.id.invitationField)
         val infoField: EditText = view.findViewById(R.id.infoField)
 
-        // Update shared text when text in EditText changes
         invitationField.addTextChangedListener {
             sharedViewModel.updateText(it.toString())
         }

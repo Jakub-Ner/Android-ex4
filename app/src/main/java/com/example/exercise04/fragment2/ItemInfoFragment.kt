@@ -45,7 +45,7 @@ class ItemInfoFragment : Fragment() {
                 ratingBarItemValue.rating = dataItem.item_value.toFloat()
                 checkBoxItemType.isChecked = dataItem.item_checked
                 textViewItemChecked.text =
-                    "Item Type: ${if (dataItem.item_type) "Bus" else "Plane"}"
+                    "Item Type: ${if (dataItem.item_type) "Cup of Tea" else "Coffee Mug"}"
             }
         } else {
             binding.textViewItemName.text = "Item information not available"
