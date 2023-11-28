@@ -21,6 +21,15 @@
         android:layout_width="147dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/lrow_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Name" />
 
         <TextView
             android:id="@+id/lrow_power"

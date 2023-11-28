@@ -58,6 +58,7 @@ class List2Fragment : Fragment() {
         RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         inner class MyViewHolder(viewBinding: ListRowBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
+            val tv1: TextView = viewBinding.lrowName
             val tv2: TextView = viewBinding.lrowPower
             val img: ImageView = viewBinding.lrowImage
             val cBox: CheckBox = viewBinding.lrowCheckBox
@@ -77,6 +78,12 @@ class List2Fragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+            holder.tv1.text = when(data[position].itemType){
+                0 -> "Coffee Mug"
+                1 -> "Cup of Tea"
+                2 -> "Energy Drink"
+                else -> "Unknown"
+            }
             holder.tv2.text = data[position].text2 + data[position].itemValue
             holder.cBox.isChecked = data[position].item_checked
             holder.itemView.setOnClickListener {

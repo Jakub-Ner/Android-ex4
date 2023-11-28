@@ -28,12 +28,11 @@ class AddItemFragment : Fragment() {
             val itemValue = binding.ratingBarItemValue.rating
             val itemChecked = binding.checkBoxItemType.isChecked
 
-            var itemType = 0
-            when (binding.editTextItemType.text.toString()) {
-                "Coffee Mug" -> itemType = 0
-                "Cup of Tea" -> itemType = 1
-                "Energy drink" -> itemType = 2
-                else -> itemType = 0
+            val itemType = when (binding.editTextItemType.text.toString()) {
+                "Coffee Mug" -> 0
+                "Cup of Tea" -> 1
+                "Energy drink" -> 2
+                else -> 0
             }
             val dataItem = DataItem(itemValue, itemChecked, itemType)
 
