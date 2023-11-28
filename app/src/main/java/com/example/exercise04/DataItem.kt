@@ -8,7 +8,6 @@ class DataItem : Serializable {
     var text_main: String = "Default text"
     var text_2: String = "value= "
     var item_value: Int = Random.nextInt(0, 5)
-    var item_value2: Int = 0
     var item_type: Boolean = Random.nextBoolean()
     var item_checked: Boolean = Random.nextBoolean()
 

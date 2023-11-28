@@ -41,10 +41,6 @@ class List2Fragment : Fragment() {
         return _binding.root
     }
 
-    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.main, menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
@@ -104,8 +100,8 @@ class List2Fragment : Fragment() {
                 ).show()
             }
             when (data[position].item_type) {
-                false -> holder.img.setImageResource(R.drawable.ic_list_1)
-                true -> holder.img.setImageResource(R.drawable.ic_list_2)
+                false -> holder.img.setImageResource(R.drawable.pngwing_com)
+                true -> holder.img.setImageResource(R.drawable.pngwing_com__1_)
             }
         }
     }

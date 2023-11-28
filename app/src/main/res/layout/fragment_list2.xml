@@ -5,8 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".fragment2.List2Fragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Tytuł Listy"
+        android:textSize="30sp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recView"
         android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
         android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

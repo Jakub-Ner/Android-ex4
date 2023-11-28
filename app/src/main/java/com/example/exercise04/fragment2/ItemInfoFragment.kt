@@ -29,12 +29,9 @@ class ItemInfoFragment : Fragment() {
         }
 
 
-        // Check if the item information is not null
         if (dataItem != null) {
-            // Display item information in the UI
             displayItemInfo(dataItem)
         } else {
-            // Handle the case when item information is not available
             binding.textViewItemName.text = "Item information not available"
         }
     }
@@ -45,13 +42,8 @@ class ItemInfoFragment : Fragment() {
                 textViewItemName.text = "Item Name: ${dataItem.text_main}"
                 textViewItemValue.text = "Item Value: ${dataItem.text_2} ${dataItem.item_value}"
 
-                // Example of using a RatingBar
                 ratingBarItemValue.rating = dataItem.item_value.toFloat()
-
-                // Example of using CheckBox
                 checkBoxItemType.isChecked = dataItem.item_checked
-
-                // Example of using another TextView
                 textViewItemChecked.text =
                     "Item Type: ${if (dataItem.item_type) "Bus" else "Plane"}"
             }

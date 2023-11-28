@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
         val textHome: TextView = view.findViewById(R.id.text_home)
         val textView: TextView = view.findViewById(R.id.textView)
 
-        // Observe changes in the shared text and update the TextView
         sharedViewModel.sharedText.observe(viewLifecycleOwner) { newText ->
             textHome.text = newText
         }

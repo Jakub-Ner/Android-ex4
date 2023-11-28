@@ -25,9 +25,7 @@ class AddItemInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up onClickListener for a button or any other UI interaction to handle user input
         binding.saveButton.setOnClickListener {
-            // Retrieve user input from EditText fields
             val itemName = binding.editTextItemName.text.toString()
             val itemValue = binding.editTextItemValue.text.toString().toIntOrNull() ?: 0.0
             val itemChecked = binding.checkBoxItemType.isChecked
@@ -39,7 +37,6 @@ class AddItemInfoFragment : Fragment() {
         }
 
         binding.cancelButton.setOnClickListener {
-            // Navigate back to List2Fragment without saving the data
             navigateToList2Fragment()
         }
     }
