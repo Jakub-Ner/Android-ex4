@@ -2,71 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    tools:context=".fragment2.AddItemFragment"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextItemName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Item Name" />
+<!--    <EditText-->
+<!--        android:id="@+id/editTextItemName"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:hint="Item Name" />-->
 
-    <EditText
-        android:id="@+id/editTextItemValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Item Value"
-        android:inputType="numberDecimal" />
+<!--    <EditText-->
+<!--        android:id="@+id/editTextItemValue"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Item Value"-->
+<!--        android:inputType="numberDecimal" />-->
 
     <CheckBox
         android:id="@+id/checkBoxItemType"
         android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:text="Item Type" />
+        android:text="Is Checked?" />
 
     <EditText
         android:id="@+id/editTextItemType"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Item Type" />
 
 
-    <TextView
-        android:id="@+id/textViewItemName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Item Name: " />
-
-    <TextView
-        android:id="@+id/textViewItemValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Item Value: " />
-
     <RatingBar
         android:id="@+id/ratingBarItemValue"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+ />
 
-    <TextView
-        android:id="@+id/textViewItemChecked"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Item Type: " />
-
+        android:orientation="horizontal">
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="Save" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="Cancel" />
+    </LinearLayout>
 
 </LinearLayout>

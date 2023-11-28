@@ -23,15 +23,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lrow_title"
+            android:id="@+id/lrow_power"
             android:layout_width="match_parent"
-            android:layout_height="29dp"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/lrow_value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:gravity="center"
             android:text="TextView" />
     </LinearLayout>
 

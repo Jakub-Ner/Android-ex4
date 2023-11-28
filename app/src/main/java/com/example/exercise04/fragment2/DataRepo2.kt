@@ -4,8 +4,8 @@ import com.example.exercise04.DataItem
 
 
 class DataRepo2 {
-    private val LIST_SIZE = 3
-    private lateinit var dataList: MutableList<DataItem>
+    private val LIST_SIZE = 6
+    private var dataList: MutableList<DataItem>
 
     companion object {
         private var INSTANCE: DataRepo2? = null
@@ -32,6 +32,6 @@ class DataRepo2 {
     }
 
     init {
-        dataList = MutableList(LIST_SIZE) { i -> DataItem(i) }
+        dataList = MutableList(LIST_SIZE) { _ -> DataItem() }
     }
 }

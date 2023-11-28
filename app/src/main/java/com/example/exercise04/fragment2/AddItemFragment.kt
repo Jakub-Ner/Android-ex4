@@ -8,17 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.exercise04.DataItem
 import com.example.exercise04.R
-import com.example.exercise04.databinding.FragmentAddItemInfoBinding
+import com.example.exercise04.databinding.FragmentAddItemBinding
 
-class AddItemInfoFragment : Fragment() {
-
-    private lateinit var binding: FragmentAddItemInfoBinding
+class AddItemFragment : Fragment() {
+    private lateinit var binding: FragmentAddItemBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddItemInfoBinding.inflate(inflater, container, false)
+        binding = FragmentAddItemBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -26,12 +25,17 @@ class AddItemInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.saveButton.setOnClickListener {
-            val itemName = binding.editTextItemName.text.toString()
-            val itemValue = binding.editTextItemValue.text.toString().toIntOrNull() ?: 0.0
+            val itemValue = binding.ratingBarItemValue.rating
             val itemChecked = binding.checkBoxItemType.isChecked
-            val itemType = binding.editTextItemType.text.toString()
 
-            val dataItem = DataItem(itemName, itemValue, itemChecked, itemType)
+            var itemType = 0
+            when (binding.editTextItemType.text.toString()) {
+                "Coffee Mug" -> itemType = 0
+                "Cup of Tea" -> itemType = 1
+                "Energy drink" -> itemType = 2
+                else -> itemType = 0
+            }
+            val dataItem = DataItem(itemValue, itemChecked, itemType)
 
             displayItemInfo(dataItem)
         }
@@ -48,7 +52,6 @@ class AddItemInfoFragment : Fragment() {
         val args = Bundle().apply {
             putSerializable("data_item_key_2", dataItem)
         }
-
         navController.navigate(destinationId, args)
     }
 

@@ -39,13 +39,15 @@ class ItemInfoFragment : Fragment() {
     private fun displayItemInfo(dataItem: DataItem?) {
         if (dataItem != null) {
             with(binding) {
-                textViewItemName.text = "Item Name: ${dataItem.text_main}"
-                textViewItemValue.text = "Item Value: ${dataItem.text_2} ${dataItem.item_value}"
+                textViewItemValue.text = "${dataItem.text2} ${dataItem.itemValue}"
 
-                ratingBarItemValue.rating = dataItem.item_value.toFloat()
+                ratingBarItemValue.rating = dataItem.itemValue.toFloat()
                 checkBoxItemType.isChecked = dataItem.item_checked
-                textViewItemChecked.text =
-                    "Item Type: ${if (dataItem.item_type) "Cup of Tea" else "Coffee Mug"}"
+                when(dataItem.itemType){
+                    0 -> textViewItemName.text = "Item Type: Coffee Mug"
+                    1 -> textViewItemName.text = "Item Type: Cup of Tea"
+                    2 -> textViewItemName.text = "Item Type: Energy drink"
+                }
             }
         } else {
             binding.textViewItemName.text = "Item information not available"

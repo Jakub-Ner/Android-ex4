@@ -1,6 +1,7 @@
 package com.example.exercise04.fragment2
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -29,7 +30,6 @@ class List2Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentList2Binding.inflate(inflater, container, false)
         val recView = _binding.recView
         recView.layoutManager = LinearLayoutManager(requireContext())
@@ -58,10 +58,10 @@ class List2Fragment : Fragment() {
         RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         inner class MyViewHolder(viewBinding: ListRowBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
-            val tv1: TextView = viewBinding.lrowTitle
-            val tv2: TextView = viewBinding.lrowValue
+            val tv2: TextView = viewBinding.lrowPower
             val img: ImageView = viewBinding.lrowImage
             val cBox: CheckBox = viewBinding.lrowCheckBox
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -77,11 +77,9 @@ class List2Fragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            holder.tv1.text = data[position].text_main
-            holder.tv2.text = data[position].text_2 + data[position].item_value
+            holder.tv2.text = data[position].text2 + data[position].itemValue
             holder.cBox.isChecked = data[position].item_checked
             holder.itemView.setOnClickListener {
-                // Navigate to the ItemInfoFragment when an item is clicked
                 showItemInfoFragment(data[position])
             }
             holder.itemView.setOnLongClickListener {
@@ -91,17 +89,17 @@ class List2Fragment : Fragment() {
             }
 
             holder.cBox.setOnClickListener { v ->
-                if ((v as CheckBox).isChecked) data[position].item_checked = true
-                else data[position].item_checked = false
+                data[position].item_checked = (v as CheckBox).isChecked
                 Toast.makeText(
                     requireContext(),
                     "Selected/Unselected: " + (position + 1),
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            when (data[position].item_type) {
-                false -> holder.img.setImageResource(R.drawable.pngwing_com)
-                true -> holder.img.setImageResource(R.drawable.pngwing_com__1_)
+            when (data[position].itemType) {
+                0 -> holder.img.setImageResource(R.drawable.pngwing_com)
+                1 -> holder.img.setImageResource(R.drawable.pngwing_com__1_)
+                2 -> holder.img.setImageResource(R.drawable.energy_drink)
             }
         }
     }
@@ -115,10 +113,8 @@ class List2Fragment : Fragment() {
         if (args != null) {
             val dataItem = args.getSerializable("data_item_key_2") as? DataItem
             if (dataItem != null) {
-                // Add the newly created DataItem to the list
                 dataRepo.addItem(dataItem)
 
-                // Notify the adapter that a new item has been inserted
                 adapter.notifyItemInserted(dataRepo.getData().size - 1)
             }
         }
@@ -127,7 +123,7 @@ class List2Fragment : Fragment() {
     private fun showItemInfoFragment(dataItem: DataItem) {
         val navController = findNavController()
         val destinationId = R.id.nav_item_info_fragment
-        val dataItem2 = dataItem// get your DataItem here
+        val dataItem2 = dataItem
         val args = Bundle().apply {
             putSerializable("data_item_key", dataItem2)
         }
