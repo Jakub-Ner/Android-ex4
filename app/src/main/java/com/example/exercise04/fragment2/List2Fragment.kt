@@ -1,5 +1,6 @@
 package com.example.exercise04.fragment2
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -90,8 +91,16 @@ class List2Fragment : Fragment() {
                 showItemInfoFragment(data[position])
             }
             holder.itemView.setOnLongClickListener {
-                if (dataRepo.deleteItem(position))
-                    notifyDataSetChanged()
+//                create a dialog to confirm deletion
+                val alertDialog = AlertDialog.Builder(requireContext())
+                alertDialog.setTitle("Delete Item")
+                alertDialog.setMessage("Are you sure you want to delete this item?")
+                alertDialog.setPositiveButton("Yes") { _, _ ->
+                    if (dataRepo.deleteItem(position))
+                        notifyDataSetChanged()
+                }
+                alertDialog.setNegativeButton("No") { _, _ -> }
+                alertDialog.create().show()
                 true
             }
 
