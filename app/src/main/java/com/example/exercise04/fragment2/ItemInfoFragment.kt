@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.exercise04.DataItem
+import com.example.exercise04.DataBase.DBItem
 import com.example.exercise04.databinding.FragmentItemInfoBinding
 
 class ItemInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentItemInfoBinding
-    private var dataItem: DataItem? = null
+    private var dataItem: DBItem? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +25,7 @@ class ItemInfoFragment : Fragment() {
 
         val args = arguments
         if (args != null) {
-            dataItem = args.getSerializable(DATA_ITEM_KEY) as? DataItem
+            dataItem = args.getSerializable(DATA_ITEM_KEY) as? DBItem
         }
 
 
@@ -36,18 +36,14 @@ class ItemInfoFragment : Fragment() {
         }
     }
 
-    private fun displayItemInfo(dataItem: DataItem?) {
+    private fun displayItemInfo(dataItem: DBItem?) {
         if (dataItem != null) {
             with(binding) {
-                textViewItemValue.text = "${dataItem.text2} ${dataItem.itemValue}"
+                textViewItemValue.text = dataItem.item_name
 
-                ratingBarItemValue.rating = dataItem.itemValue.toFloat()
+                ratingBarItemValue.rating = dataItem.item_rating
                 checkBoxItemType.isChecked = dataItem.item_checked
-                when(dataItem.itemType){
-                    0 -> textViewItemName.text = "Item Type: Coffee Mug"
-                    1 -> textViewItemName.text = "Item Type: Cup of Tea"
-                    2 -> textViewItemName.text = "Item Type: Energy drink"
-                }
+                textViewItemName.text = dataItem.item_type
             }
         } else {
             binding.textViewItemName.text = "Item information not available"
@@ -58,7 +54,7 @@ class ItemInfoFragment : Fragment() {
         private const val DATA_ITEM_KEY = "data_item_key"
 
         @JvmStatic
-        fun newInstance(dataItem: DataItem): ItemInfoFragment {
+        fun newInstance(dataItem: DBItem): ItemInfoFragment {
             val fragment = ItemInfoFragment()
             val args = Bundle().apply {
                 putSerializable(DATA_ITEM_KEY, dataItem)

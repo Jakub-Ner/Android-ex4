@@ -2,7 +2,6 @@ package com.example.exercise04.fragment2
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -15,28 +14,30 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.exercise04.DataItem
+import com.example.exercise04.DataBase.DBItem
 import com.example.exercise04.R
 import com.example.exercise04.databinding.FragmentList2Binding
 import com.example.exercise04.databinding.ListRowBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class List2Fragment : Fragment() {
 
     private lateinit var _binding: FragmentList2Binding
+    lateinit var dataRepo: DataRepo2
+    lateinit var adapter: MyAdapter
 
-    val dataRepo = DataRepo2.getInstance()
-    val adapter = MyAdapter(dataRepo.getData())
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dataRepo = DataRepo2.getInstance(requireContext())
+        adapter = MyAdapter(dataRepo.getData() ?: mutableListOf())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentList2Binding.inflate(inflater, container, false)
-        val recView = _binding.recView
-        recView.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter2 = DataRepo2.getInstance().getData()?.let { MyAdapter(it) }
-        recView.adapter = adapter2
         setHasOptionsMenu(true)
 
         return _binding.root
@@ -55,7 +56,7 @@ class List2Fragment : Fragment() {
         }
     }
 
-    inner class MyAdapter(var data: MutableList<DataItem>) :
+    inner class MyAdapter(var data: MutableList<DBItem>) :
         RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         inner class MyViewHolder(viewBinding: ListRowBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
@@ -64,6 +65,11 @@ class List2Fragment : Fragment() {
             val img: ImageView = viewBinding.lrowImage
             val cBox: CheckBox = viewBinding.lrowCheckBox
 
+        }
+
+        fun updateData(newData: MutableList<DBItem>) {
+            data = newData
+            notifyDataSetChanged()
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -79,24 +85,21 @@ class List2Fragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            holder.tv1.text = when(data[position].itemType){
-                0 -> "Coffee Mug"
-                1 -> "Cup of Tea"
-                2 -> "Energy Drink"
-                else -> "Unknown"
-            }
-            holder.tv2.text = data[position].text2 + data[position].itemValue
+            holder.tv1.text = data[position].item_name
+
+
+            holder.tv2.text = data[position].item_type
             holder.cBox.isChecked = data[position].item_checked
             holder.itemView.setOnClickListener {
                 showItemInfoFragment(data[position])
             }
             holder.itemView.setOnLongClickListener {
-//                create a dialog to confirm deletion
                 val alertDialog = AlertDialog.Builder(requireContext())
                 alertDialog.setTitle("Delete Item")
                 alertDialog.setMessage("Are you sure you want to delete this item?")
                 alertDialog.setPositiveButton("Yes") { _, _ ->
-                    if (dataRepo.deleteItem(position))
+                    if (dataRepo.deleteItem(data[position]))
+                        data = dataRepo.getData()!!
                         notifyDataSetChanged()
                 }
                 alertDialog.setNegativeButton("No") { _, _ -> }
@@ -112,29 +115,36 @@ class List2Fragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            when (data[position].itemType) {
-                0 -> holder.img.setImageResource(R.drawable.pngwing_com)
-                1 -> holder.img.setImageResource(R.drawable.pngwing_com__1_)
-                2 -> holder.img.setImageResource(R.drawable.energy_drink)
-            }
+            holder.img.setImageResource(data[position].item_image)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recView = _binding.recView
+        recView.layoutManager = LinearLayoutManager(requireContext())
+        recView.adapter = adapter
 
         val args = arguments
         if (args != null) {
-            val dataItem = args.getSerializable("data_item_key_2") as? DataItem
+            val dataItem = args.getSerializable("data_item_key_2") as? DBItem
             if (dataItem != null) {
                 dataRepo.addItem(dataItem)
 
-                adapter.notifyItemInserted(dataRepo.getData().size - 1)
+                adapter.updateData(dataRepo.getData() ?: mutableListOf())
+                adapter.notifyDataSetChanged()
             }
+        }
+        val fabAddNew = view.findViewById<FloatingActionButton>(R.id.fbAddNew)
+
+        fabAddNew.setOnClickListener {
+            findNavController().navigate(R.id.nav_add_item_fragment)
         }
     }
 
-    private fun showItemInfoFragment(dataItem: DataItem) {
+
+
+    private fun showItemInfoFragment(dataItem: DBItem) {
         val navController = findNavController()
         val destinationId = R.id.nav_item_info_fragment
         val dataItem2 = dataItem

@@ -1,37 +1,48 @@
 package com.example.exercise04.fragment2
 
-import com.example.exercise04.DataItem
+
+import android.content.Context
+import com.example.exercise04.DataBase.DBItem
+import com.example.exercise04.DataBase.MyDB
+import com.example.exercise04.DataBase.MyDao
 
 
-class DataRepo2 {
-    private val LIST_SIZE = 6
-    private var dataList: MutableList<DataItem>
+class DataRepo2(context: Context) {
+//    private var dataList: MutableList<DBItem>? = null
+    private var myDao: MyDao
+    private var db: MyDB
 
     companion object {
-        private var INSTANCE: DataRepo2? = null
-        fun getInstance(): DataRepo2 {
-            if (INSTANCE == null) {
-                INSTANCE = DataRepo2()
-            }
+        private var R_INSTANCE: DataRepo2? = null
 
-            return INSTANCE!!
+        fun getInstance(context: Context): DataRepo2 {
+            if (R_INSTANCE == null) {
+                R_INSTANCE = DataRepo2(context)
+            }
+            return R_INSTANCE as DataRepo2
         }
     }
 
-    fun getData(): MutableList<DataItem> {
-        return dataList
-    }
-
-    fun deleteItem(position: Int): Boolean {
-        dataList.removeAt(position)
-        return true
-    }
-
-    fun addItem(dataItem: DataItem) {
-        dataList.add(dataItem)
-    }
-
     init {
-        dataList = MutableList(LIST_SIZE) { _ -> DataItem() }
+        db = MyDB.getDatabase(context)!!
+        myDao = db.myDao()!!
+// addItem(DBItem(1))
+// addItem(DBItem(2))
+    }
+
+    fun getData(): MutableList<DBItem>? {
+        return myDao.getAllData()
+    }
+    fun addItem(item: DBItem) : Boolean {
+        return myDao.insert(item) >= 0
+    }
+    fun deleteItem(item: DBItem) : Boolean {
+        return myDao.delete(item) > 0
+    }
+
+    fun isItemExists(dataItem: DBItem): Boolean {
+        val itemId = dataItem?.id ?: return false
+        val existingItem = myDao.getItemById(itemId)
+        return existingItem != null
     }
 }

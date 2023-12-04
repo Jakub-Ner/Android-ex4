@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.example.exercise04.DataItem
+import com.example.exercise04.DataBase.DBItem
+import com.example.exercise04.fragment2.DataRepo2
 import com.example.exercise04.R
 import com.example.exercise04.databinding.FragmentAddItemBinding
 
@@ -25,34 +27,54 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.saveButton.setOnClickListener {
-            val itemValue = binding.ratingBarItemValue.rating
+            val itemRating = binding.ratingBarItemValue.rating
             val itemChecked = binding.checkBoxItemType.isChecked
+            val itemTypeId = binding.rg.checkedRadioButtonId
 
-            val itemType = when (binding.editTextItemType.text.toString()) {
-                "Coffee Mug" -> 0
-                "Cup of Tea" -> 1
-                "Energy drink" -> 2
-                else -> 0
+            val item = DBItem("dupa","01/01/1990", itemRating, getType(itemTypeId), itemChecked)
+            val repository = DataRepo2.getInstance(requireContext())
+            if (repository.addItem(item)) {
+                Toast.makeText(requireContext(), "Item added to the database", Toast.LENGTH_SHORT).show()
+                parentFragmentManager.setFragmentResult("item_added", Bundle.EMPTY)
             }
-            val dataItem = DataItem(itemValue, itemChecked, itemType)
 
-            displayItemInfo(dataItem)
+            val navController = NavHostFragment.findNavController(this)
+            navController.navigate( R.id.nav_list2_fragment)
         }
+
 
         binding.cancelButton.setOnClickListener {
             navigateToList2Fragment()
         }
     }
 
-    private fun displayItemInfo(dataItem: DataItem) {
-        val navController = NavHostFragment.findNavController(this)
-        val destinationId = R.id.nav_list2_fragment
+    private fun getType(checkedId: Int): String {
+        when (checkedId) {
+            R.id.rbCoffee -> {
+                return "Coffee Mug"
+            }
 
-        val args = Bundle().apply {
-            putSerializable("data_item_key_2", dataItem)
+            R.id.rbTea -> {
+                return "Cup of Tea"
+            }
+
+            R.id.rbEnergyDrink -> {
+                return "Energy drink"
+            }
         }
-        navController.navigate(destinationId, args)
+        return ""
     }
+
+
+//    private fun displayItemInfo(dataItem: DataItem) {
+//        val navController = NavHostFragment.findNavController(this)
+//        val destinationId = R.id.nav_list2_fragment
+//
+//        val args = Bundle().apply {
+//            putSerializable("data_item_key_2", dataItem)
+//        }
+//        navController.navigate(destinationId, args)
+//    }
 
     private fun navigateToList2Fragment() {
         val navController = NavHostFragment.findNavController(this)

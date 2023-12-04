@@ -32,9 +32,43 @@
     <EditText
         android:id="@+id/editTextItemType"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Item Type" />
+
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Type:"/>
+
+    <RadioGroup
+        android:id="@+id/rg"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbCoffee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Coffee Mug" />
+
+        <RadioButton
+            android:id="@+id/rbTea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cup of Tea" />
+
+        <RadioButton
+            android:id="@+id/rbEnergyDrink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Energy Drink" />
+    </RadioGroup>
 
 
     <RatingBar
