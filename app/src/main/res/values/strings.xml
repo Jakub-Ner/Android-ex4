@@ -16,4 +16,5 @@
     <string name="tab_layout_description">Tabs for ViewPager</string>
     <string name="mnu_view_item_info">Item Info</string>
     <string name="mnu_view_add_item">Add Item</string>
+    <string name="mnu_view_edit_item">Edit Item</string>
 </resources>

@@ -40,9 +40,8 @@ class DataRepo2(context: Context) {
         return myDao.delete(item) > 0
     }
 
-    fun isItemExists(dataItem: DBItem): Boolean {
-        val itemId = dataItem?.id ?: return false
-        val existingItem = myDao.getItemById(itemId)
-        return existingItem != null
+    fun editItem(item: DBItem) {
+        return myDao.update(item)
     }
+
 }

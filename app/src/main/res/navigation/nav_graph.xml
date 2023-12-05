@@ -28,6 +28,8 @@
         <action
             android:id="@+id/action_list2_to_add_item"
             app:destination="@id/nav_add_item_fragment" />
+
+
     </fragment>
 
     <fragment
@@ -40,11 +42,22 @@
         android:id="@+id/nav_item_info_fragment"
         android:name="com.example.exercise04.fragment2.ItemInfoFragment"
         android:label="@string/mnu_view_item_info"
-        tools:layout="@layout/fragment_item_info" />
+        tools:layout="@layout/fragment_item_info" >
+        <action
+            android:id="@+id/action_nav_item_info_fragment_to_nav_edit_item_fragment"
+            app:destination="@id/nav_edit_item_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_add_item_fragment"
         android:name="com.example.exercise04.fragment2.AddItemFragment"
         android:label="@string/mnu_view_add_item"
         tools:layout="@layout/fragment_add_item" />
+
+    <fragment
+        android:id="@+id/nav_edit_item_fragment"
+        android:name="com.example.exercise04.fragment2.EditItemFragment"
+        tools:layout="@layout/fragment_edit_item"
+        android:label="@string/mnu_view_edit_item"
+        />
 
 </navigation>

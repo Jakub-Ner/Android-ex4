@@ -11,6 +11,8 @@ import com.example.exercise04.DataBase.DBItem
 import com.example.exercise04.fragment2.DataRepo2
 import com.example.exercise04.R
 import com.example.exercise04.databinding.FragmentAddItemBinding
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AddItemFragment : Fragment() {
     private lateinit var binding: FragmentAddItemBinding
@@ -27,15 +29,18 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.saveButton.setOnClickListener {
+            val itemName = binding.editTextItemName.text.toString()
             val itemRating = binding.ratingBarItemValue.rating
             val itemChecked = binding.checkBoxItemType.isChecked
             val itemTypeId = binding.rg.checkedRadioButtonId
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val itemDate: String = LocalDateTime.now().format(formatter).toString()
 
-            val item = DBItem("dupa","01/01/1990", itemRating, getType(itemTypeId), itemChecked)
+            val item = DBItem(itemName, itemDate, itemRating, getType(itemTypeId), itemChecked)
             val repository = DataRepo2.getInstance(requireContext())
             if (repository.addItem(item)) {
                 Toast.makeText(requireContext(), "Item added to the database", Toast.LENGTH_SHORT).show()
-                parentFragmentManager.setFragmentResult("item_added", Bundle.EMPTY)
+//                parentFragmentManager.setFragmentResult("item_added", Bundle.EMPTY)
             }
 
             val navController = NavHostFragment.findNavController(this)

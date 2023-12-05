@@ -24,4 +24,7 @@ interface MyDao {
 
     @Query("SELECT * FROM item_table WHERE id = :itemId")
     fun getItemById(itemId: Int): DBItem?
+
+    @Update
+    fun update(item: DBItem)
 }

@@ -2,6 +2,7 @@ package com.example.exercise04.fragment2
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -30,6 +31,7 @@ class List2Fragment : Fragment() {
         super.onCreate(savedInstanceState)
         dataRepo = DataRepo2.getInstance(requireContext())
         adapter = MyAdapter(dataRepo.getData() ?: mutableListOf())
+        Log.d("myTag", "adapter created")
     }
 
     override fun onCreateView(
@@ -51,7 +53,6 @@ class List2Fragment : Fragment() {
                 navController.navigate(destinationId)
                 return true
             }
-
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -65,11 +66,6 @@ class List2Fragment : Fragment() {
             val img: ImageView = viewBinding.lrowImage
             val cBox: CheckBox = viewBinding.lrowCheckBox
 
-        }
-
-        fun updateData(newData: MutableList<DBItem>) {
-            data = newData
-            notifyDataSetChanged()
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -87,7 +83,6 @@ class List2Fragment : Fragment() {
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             holder.tv1.text = data[position].item_name
 
-
             holder.tv2.text = data[position].item_type
             holder.cBox.isChecked = data[position].item_checked
             holder.itemView.setOnClickListener {
@@ -98,9 +93,10 @@ class List2Fragment : Fragment() {
                 alertDialog.setTitle("Delete Item")
                 alertDialog.setMessage("Are you sure you want to delete this item?")
                 alertDialog.setPositiveButton("Yes") { _, _ ->
-                    if (dataRepo.deleteItem(data[position]))
+                    if (dataRepo.deleteItem(data[position])) {
                         data = dataRepo.getData()!!
-                        notifyDataSetChanged()
+                        adapter.notifyDataSetChanged()
+                    }
                 }
                 alertDialog.setNegativeButton("No") { _, _ -> }
                 alertDialog.create().show()
@@ -125,16 +121,6 @@ class List2Fragment : Fragment() {
         recView.layoutManager = LinearLayoutManager(requireContext())
         recView.adapter = adapter
 
-        val args = arguments
-        if (args != null) {
-            val dataItem = args.getSerializable("data_item_key_2") as? DBItem
-            if (dataItem != null) {
-                dataRepo.addItem(dataItem)
-
-                adapter.updateData(dataRepo.getData() ?: mutableListOf())
-                adapter.notifyDataSetChanged()
-            }
-        }
         val fabAddNew = view.findViewById<FloatingActionButton>(R.id.fbAddNew)
 
         fabAddNew.setOnClickListener {
@@ -147,9 +133,8 @@ class List2Fragment : Fragment() {
     private fun showItemInfoFragment(dataItem: DBItem) {
         val navController = findNavController()
         val destinationId = R.id.nav_item_info_fragment
-        val dataItem2 = dataItem
         val args = Bundle().apply {
-            putSerializable("data_item_key", dataItem2)
+            putSerializable("data_item_key", dataItem)
         }
         navController.navigate(destinationId, args)
     }
