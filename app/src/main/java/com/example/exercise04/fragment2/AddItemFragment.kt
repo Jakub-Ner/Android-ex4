@@ -40,7 +40,7 @@ class AddItemFragment : Fragment() {
             val repository = DataRepo2.getInstance(requireContext())
             if (repository.addItem(item)) {
                 Toast.makeText(requireContext(), "Item added to the database", Toast.LENGTH_SHORT).show()
-//                parentFragmentManager.setFragmentResult("item_added", Bundle.EMPTY)
+                parentFragmentManager.setFragmentResult("item_added", Bundle.EMPTY)
             }
 
             val navController = NavHostFragment.findNavController(this)

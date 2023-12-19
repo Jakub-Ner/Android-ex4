@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_homde"
             android:icon="@drawable/one"
             android:title="Home" />
         <item
-            android:id="@+id/nav_list2_fragment"
+            android:id="@+id/nav_list2_frdsagment"
             android:icon="@drawable/two"
             android:title="menu list2 Fragment" />
         <item
-            android:id="@+id/nav_view_pager_fragment"
+            android:id="@+id/nav_view_pageasr_fragment"
             android:icon="@drawable/three"
             android:title="Menu Viewpager" />
     </group>
