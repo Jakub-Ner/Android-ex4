@@ -9,7 +9,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.exercise04.DataBase.DBItem
 import kotlinx.coroutines.launch
 
-class MyViewModel(context: Context): ViewModel() {
+class MyViewModel(context: Context) : ViewModel() {
     private lateinit var dataRepo: DataRepo2
 
     init {
@@ -27,9 +27,12 @@ class MyViewModel(context: Context): ViewModel() {
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
                 val application = checkNotNull(extras[APPLICATION_KEY])
-                return super.create(modelClass)
+                return MyViewModel(application.applicationContext) as T
             }
         }
     }
