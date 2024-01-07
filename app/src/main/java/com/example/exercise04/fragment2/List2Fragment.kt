@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +19,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exercise04.DataBase.DBItem
 import com.example.exercise04.R
-import com.example.exercise04.SharedViewModel
 import com.example.exercise04.databinding.FragmentList2Binding
 import com.example.exercise04.databinding.ListRowBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,6 +34,18 @@ class List2Fragment : Fragment() {
         when (action) {
             1 -> {
                 findNavController().navigate(R.id.nav_add_item_fragment)
+            }
+            2 -> {
+                val alertDialog = android.app.AlertDialog.Builder(requireContext())
+                alertDialog.setTitle("Delete Item")
+                alertDialog.setMessage("Are you sure you want to delete this item?")
+                alertDialog.setPositiveButton("Yes") { _, _ ->
+                    if (dataRepo.deleteItem(item)) {
+                        adapter.submitList(myViewModel.getDataList2().value)
+                    }
+                }
+                alertDialog.setNegativeButton("No") { _, _ -> }
+                alertDialog.create().show()
             }
         }
     }
@@ -51,7 +63,6 @@ class List2Fragment : Fragment() {
             adapter.submitList(it)
         }
     }
-// notify -> adapter.submitList(dataRepo.getData() ?: mutableListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,23 +75,22 @@ class List2Fragment : Fragment() {
         return _binding.root
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_settings -> {
-                val navController = findNavController()
-                val destinationId = R.id.nav_add_item_fragment
-                navController.navigate(destinationId)
-                return true
-            }
-
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.action_settings -> {
+//                val navController = findNavController()
+//                val destinationId = R.id.nav_add_item_fragment
+//                navController.navigate(destinationId)
+//                return true
+//            }
+//
+//            else -> return super.onOptionsItemSelected(item)
+//        }
+//    }
 
 
     inner class MyAdapter(private val onItemAction: (item: DBItem, action: Int) -> Unit) :
         ListAdapter<DBItem, MyAdapter.MyViewHolder>(DiffCallback) {
-//        ListAdapter<DBItem, MyAdapter.MyViewHolder>(DiffCallback) {
 
         inner class MyViewHolder(viewBinding: ListRowBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
@@ -97,52 +107,41 @@ class List2Fragment : Fragment() {
             )
             val holder = MyViewHolder(viewBinding)
 //            here listeners:
-            viewBinding.lrowCheckBox.setOnClickListener {
+            holder.itemView.setOnClickListener {
                 val position = holder.adapterPosition
                 val item = getItem(position)
                 onItemAction(item, 1)
             }
+            holder.itemView.setOnLongClickListener {
+                val position = holder.adapterPosition
+                val item = getItem(position)
+                onItemAction(item, 2)
+                true
+            }
             return holder
         }
 
-//        override fun getItemCount(): Int {
-//            return data.size
-//        }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             val currentItem = getItem(position)
 
-//            holder.tv1.text = data[position].item_name
-//
-//            holder.tv2.text = data[position].item_type
-//            holder.cBox.isChecked = data[position].item_checked
-//            holder.itemView.setOnClickListener {
-//                showItemInfoFragment(data[position])
-//            }
-//            holder.itemView.setOnLongClickListener {
-//                val alertDialog = AlertDialog.Builder(requireContext())
-//                alertDialog.setTitle("Delete Item")
-//                alertDialog.setMessage("Are you sure you want to delete this item?")
-//                alertDialog.setPositiveButton("Yes") { _, _ ->
-//                    if (dataRepo.deleteItem(data[position])) {
-//                        data = dataRepo.getData()!!
-//                        adapter.notifyDataSetChanged()
-//                    }
-//                }
-//                alertDialog.setNegativeButton("No") { _, _ -> }
-//                alertDialog.create().show()
-//                true
-//            }
-//
-//            holder.cBox.setOnClickListener { v ->
-//                data[position].item_checked = (v as CheckBox).isChecked
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Selected/Unselected: " + (position + 1),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//            holder.img.setImageResource(data[position].item_image)
+            holder.tv1.text = currentItem.item_name
+            holder.tv2.text = currentItem.item_type
+            holder.cBox.isChecked = currentItem.item_checked
+            holder.itemView.setOnClickListener {
+                showItemInfoFragment(currentItem)
+            }
+
+            holder.img.setImageResource(currentItem.item_image)
+
+            holder.cBox.setOnClickListener { v ->
+                currentItem.item_checked = (v as CheckBox).isChecked
+                Toast.makeText(
+                    requireContext(),
+                    "Selected/Unselected: " + (position + 1),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
