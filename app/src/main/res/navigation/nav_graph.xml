@@ -60,4 +60,20 @@
         android:label="@string/mnu_view_edit_item"
         />
 
+    <fragment
+        android:id="@+id/nav_photo_list_fragment"
+        android:name="com.example.exercise04.photos.PhotoListFragment"
+        android:label="fragment_photo_list"
+        tools:layout="@layout/fragment_photo_list" >
+        <action
+            android:id="@+id/action_nav_photo_list_fragment_to_swipePhotoFragment"
+            app:destination="@id/swipePhotoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/swipePhotoFragment"
+        android:name="com.example.exercise04.photos.SwipePhotoFragment"
+        android:label="fragment_swipe_photo"
+        tools:layout="@layout/fragment_swipe_photo" />
+
 </navigation>
