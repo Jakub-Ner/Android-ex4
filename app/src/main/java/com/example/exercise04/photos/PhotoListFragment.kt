@@ -60,7 +60,7 @@ class PhotoListFragment : Fragment() {
         val listener = object : OnItemClickListener {
             override fun onImageClick(dataItem: DataItem) {
                 val bundle = Bundle()
-//                bundle.putInt("startingIndex", position)
+                bundle.putInt("selectedItemId", dataItem.id)
                 findNavController().navigate(R.id.swipePhotoFragment, bundle)
             }
         }
@@ -95,13 +95,14 @@ class PhotoListFragment : Fragment() {
                 val value = File(tmpUri.path!!)
                 val fileName = value.name
                 photoLauncher.launch(tmpUri)
-                val newImage = DataItem(
-                    fileName,
-                    value.toURI().path,
-                    value.absolutePath,
-                    tmpUri
-                )
-                adapter.dList.add(newImage)
+//                val newImage = DataItem(
+//                    fileName,
+//                    value.toURI().path,
+//                    value.absolutePath,
+//                    tmpUri
+//                )
+//                adapter.dList.add(newImage)
+                dataRepo.getList()
 //                adapter.notifyDataSetChanged()
 //                dataRepo.getAppList()?.add(newImage) // add should be implemented
 

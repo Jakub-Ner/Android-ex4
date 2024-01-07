@@ -16,6 +16,9 @@ class DataRepo {
     lateinit var uri: Uri
 
     private fun getSharedList(): MutableList<DataItem>? {
+        if (sharedStoreList?.size != 0)
+            return sharedStoreList
+
         sharedStoreList?.clear()
 
         val uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -41,6 +44,7 @@ class DataRepo {
                 var thisUriPath = thisContentUri.toString()
                 sharedStoreList?.add(
                     DataItem(
+                        sharedStoreList?.size!!,
                         thisName,
                         thisUriPath,
                         "No path yet",
@@ -56,6 +60,9 @@ class DataRepo {
 
 
     private fun getAppList(): MutableList<DataItem>? {
+        if (appStoreList?.size != 0)
+            return appStoreList
+
         val dir: File? =
             ctx.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         dir?.listFiles()
@@ -77,6 +84,7 @@ class DataRepo {
                         )
                         appStoreList?.add(
                             DataItem(
+                                appStoreList?.size!!,
                                 fileName,
                                 value.toURI().path,
                                 value.absolutePath,
@@ -106,19 +114,19 @@ class DataRepo {
             return getAppList()
     }
 
+    var sharedStoreList: MutableList<DataItem>? = mutableListOf<DataItem>()
+    var appStoreList: MutableList<DataItem>? = mutableListOf<DataItem>()
+
     companion object {
         private var INSTANCE: DataRepo? = null
         private lateinit var ctx: Context
         val SHARED_S = 1
         val PRIVATE_S = 2
-        var sharedStoreList: MutableList<DataItem>? = null
-        var appStoreList: MutableList<DataItem>? = null
+
 
         fun getinstance(ctx: Context): DataRepo {
             if (INSTANCE == null) {
                 INSTANCE = DataRepo()
-                sharedStoreList = mutableListOf<DataItem>()
-                appStoreList = mutableListOf<DataItem>()
                 this.ctx = ctx
             }
             return INSTANCE as DataRepo
