@@ -25,6 +25,13 @@ import kotlin.random.Random
         @ColumnInfo(name = "checked")
         var item_checked : Boolean= Random.nextBoolean()
 
+//        is equal()
+        override fun equals(other: Any?): Boolean {
+            if (other is DBItem) {
+                return other.id == id
+            }
+            return false
+        }
 //        constructor()
 
 //        constructor(num: Int) {

@@ -16,5 +16,10 @@
             android:id="@+id/nav_view_pager_fragment"
             android:icon="@drawable/three"
             android:title="Menu Viewpager" />
+
+        <item
+            android:id="@+id/nav_photo_list_fragment"
+            android:icon="@drawable/three"
+            android:title="Image list" />
     </group>
 </menu>

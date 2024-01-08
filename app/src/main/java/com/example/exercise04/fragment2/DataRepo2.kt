@@ -2,13 +2,15 @@ package com.example.exercise04.fragment2
 
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.example.exercise04.DataBase.DBItem
 import com.example.exercise04.DataBase.MyDB
 import com.example.exercise04.DataBase.MyDao
+import kotlinx.coroutines.flow.Flow
 
 
 class DataRepo2(context: Context) {
-//    private var dataList: MutableList<DBItem>? = null
+    //    private var dataList: MutableList<DBItem>? = null
     private var myDao: MyDao
     private var db: MyDB
 
@@ -33,10 +35,19 @@ class DataRepo2(context: Context) {
     fun getData(): MutableList<DBItem>? {
         return myDao.getAllData()
     }
-    fun addItem(item: DBItem) : Boolean {
+
+    fun getData2(): LiveData<List<DBItem>> {
+        return myDao.getAllData2()
+    }
+
+    fun getData3(): Flow<List<DBItem>> {
+        return myDao.getAllData3()
+    }
+    fun addItem(item: DBItem): Boolean {
         return myDao.insert(item) >= 0
     }
-    fun deleteItem(item: DBItem) : Boolean {
+
+    fun deleteItem(item: DBItem): Boolean {
         return myDao.delete(item) > 0
     }
 
