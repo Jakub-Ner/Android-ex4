@@ -4,7 +4,6 @@ package com.example.exercise04.photos
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
@@ -13,20 +12,26 @@ import com.example.exercise04.BuildConfig
 import java.io.File
 
 class DataRepo {
-    lateinit var uri: Uri
+    public fun getListSize(): Int {
+        return this.itemList?.size!!
+    }
+
+    fun addDataItem(item: DataItem) {
+        this.itemList?.add(item)
+    }
 
     private fun getSharedList(): MutableList<DataItem>? {
-        if (sharedStoreList?.size != 0)
-            return sharedStoreList
+        if (this.itemList?.size != 0)
+            return this.itemList
 
-        sharedStoreList?.clear()
+        this.itemList?.clear()
 
         val uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
         val contentResolver: ContentResolver =
             ctx.contentResolver // requireContext().contentResolver
         val cursor = contentResolver.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            uri,
             null,
             null, null,
             "${MediaStore.MediaColumns.DATE_TAKEN} DESC"
@@ -42,9 +47,9 @@ class DataRepo {
                 var thisName = cursor.getString(nameColumn)
                 var thisContentUri = ContentUris.withAppendedId(uri, thisId)
                 var thisUriPath = thisContentUri.toString()
-                sharedStoreList?.add(
+                this.itemList?.add(
                     DataItem(
-                        sharedStoreList?.size!!,
+                        this.itemList?.size!!,
                         thisName,
                         thisUriPath,
                         "No path yet",
@@ -54,22 +59,21 @@ class DataRepo {
             } while (cursor.moveToNext())
             cursor.close()
         }
-        Log.d("myTag", "getSharedList: ${sharedStoreList?.size}")
-        return sharedStoreList
+        Log.d("myTag", "getSharedList: ${this.itemList?.size}")
+        return this.itemList
     }
 
 
     private fun getAppList(): MutableList<DataItem>? {
-        if (appStoreList?.size != 0)
-            return appStoreList
-
+        this.itemList?.clear()
         val dir: File? =
             ctx.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         dir?.listFiles()
-        appStoreList?.clear()
+        this.itemList?.clear()
         if (dir?.isDirectory() == true) {
             var fileList = dir.listFiles()
             if (fileList != null) {
+//                fileList.sortByDescending { it.lastModified() }
                 for (value in fileList) {
                     var fileName =
                         value.name
@@ -82,9 +86,9 @@ class DataRepo {
                             "${BuildConfig.APPLICATION_ID}.provider",
                             value
                         )
-                        appStoreList?.add(
+                        this.itemList?.add(
                             DataItem(
-                                appStoreList?.size!!,
+                                this.itemList?.size!!,
                                 fileName,
                                 value.toURI().path,
                                 value.absolutePath,
@@ -95,8 +99,9 @@ class DataRepo {
                 }
             }
         }
-        val size = appStoreList?.size
-        return appStoreList
+        val size = this.itemList?.size
+        Log.d("PhotoListFragment", "get app list:" + size.toString())
+        return this.itemList
     }
 
 
@@ -114,8 +119,7 @@ class DataRepo {
             return getAppList()
     }
 
-    var sharedStoreList: MutableList<DataItem>? = mutableListOf<DataItem>()
-    var appStoreList: MutableList<DataItem>? = mutableListOf<DataItem>()
+    var itemList: MutableList<DataItem>? = mutableListOf<DataItem>()
 
     companion object {
         private var INSTANCE: DataRepo? = null

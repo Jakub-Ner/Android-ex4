@@ -27,16 +27,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PhotoListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PhotoListFragment : Fragment() {
     private var _binding: FragmentPhotoListBinding? = null
     private val binding get() = _binding!!
@@ -45,14 +36,9 @@ class PhotoListFragment : Fragment() {
     private lateinit var adapter: PhotoListAdapter
     private lateinit var recView: RecyclerView
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        dataRepo.setStorage(SHARED_S)
-        adapter.dList.clear()
-        adapter.dList.addAll(dataRepo.getList()!!)
-        adapter.notifyDataSetChanged()
-        Log.d("PhotoListFragment", "onSaveInstanceState")
-        super.onSaveInstanceState(outState)
-    }
+    private val APP_STORAGE = "App Storage"
+    private val SHARED_STORAGE = "Shared Storage"
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,8 +47,9 @@ class PhotoListFragment : Fragment() {
         _binding =
             FragmentPhotoListBinding.inflate(inflater, container, false)
         dataRepo = DataRepo.getinstance(requireContext())
-        dataRepo.setStorage(SHARED_S)
-        binding.btnStorageType.text = "App Storage`"
+        dataRepo.setStorage(PRIVATE_S)
+
+        binding.btnStorageType.text = SHARED_STORAGE
 
         return binding.root
     }
@@ -94,10 +81,18 @@ class PhotoListFragment : Fragment() {
         this.adapter = adapter!!
         recView.adapter = adapter
 
+        var newImage: DataItem? = null;
+
         val photoLauncher =
             registerForActivityResult(ActivityResultContracts.TakePicture()) { result: Boolean ->
                 if (result) { // consume result - see later remarks
                     Toast.makeText(requireContext(), "Photo TAKEN", Toast.LENGTH_LONG).show()
+
+//                    this.adapter.dList.add(newImage!!)
+//                    list?.add(newImage!!)
+                    dataRepo.addDataItem(newImage!!)
+                    this.adapter.notifyItemInserted(newImage!!.id)
+
                 } else { // make some action – warning
                     Toast.makeText(requireContext(), "Photo NOT taken!", Toast.LENGTH_LONG).show()
                 }
@@ -114,17 +109,14 @@ class PhotoListFragment : Fragment() {
                 val value = File(tmpUri.path!!)
                 val fileName = value.name
                 photoLauncher.launch(tmpUri)
-//                val newImage = DataItem(
-//                    fileName,
-//                    value.toURI().path,
-//                    value.absolutePath,
-//                    tmpUri
-//                )
-//                adapter.dList.add(newImage)
-                dataRepo.getList()
-//                adapter.notifyDataSetChanged()
-//                dataRepo.getAppList()?.add(newImage) // add should be implemented
 
+                newImage = DataItem(
+                    dataRepo.getListSize(),
+                    fileName,
+                    value.toURI().path,
+                    value.absolutePath,
+                    tmpUri
+                )
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(requireContext(), "CAMERA DOESN'T WORK!", Toast.LENGTH_LONG).show()
             }
@@ -133,13 +125,13 @@ class PhotoListFragment : Fragment() {
         binding.btnStorageType.setOnClickListener {
             if (DataRepo.getStorage() == SHARED_S) {
                 dataRepo.setStorage(PRIVATE_S)
-                binding.btnStorageType.text = "Shared Storage"
+                binding.btnStorageType.text = SHARED_STORAGE
             } else {
                 dataRepo.setStorage(SHARED_S)
-                binding.btnStorageType.text = "App Storage"
+                binding.btnStorageType.text = APP_STORAGE
             }
-            adapter.dList.clear()
-            adapter.dList.addAll(dataRepo.getList()!!)
+            this.adapter.dList.clear()
+            dataRepo.getList()
             adapter.notifyDataSetChanged()
         }
     }
@@ -149,7 +141,6 @@ class PhotoListFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("PhotoListFragment", "onActivityResult2")
 
-//        if (requestCode == Activity.RESULT_OK) {
         when (requestCode) {
             200 -> {
                 val selectedImageUri = data?.data
@@ -160,7 +151,6 @@ class PhotoListFragment : Fragment() {
                 findNavController().navigate(R.id.action_nav_photo_list_fragment_to_nav_home)
             }
         }
-//        }
     }
 
     private fun getNewFileUri(): Uri {

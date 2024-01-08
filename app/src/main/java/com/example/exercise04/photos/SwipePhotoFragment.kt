@@ -35,7 +35,7 @@ class SwipePhotoFragment : Fragment() {
         val images = dataRepo.getList()
         val viewPager: ViewPager2 = binding.viewPager2
         viewPager.adapter = ViewPagerImageAdapter(this, images)
-//        viewPager.setCurrentItem(currentItemId, true)
+        viewPager.setCurrentItem(currentItemId, false)
 
         val btnConfirmImage = binding.fab
         btnConfirmImage.setOnClickListener {

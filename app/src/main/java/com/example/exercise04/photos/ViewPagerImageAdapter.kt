@@ -1,6 +1,7 @@
 package com.example.exercise04.photos
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class ViewPagerImageAdapter(
     override fun createFragment(itemId: Int): Fragment {
         val fragment = ImageFragment()
         val bundle = Bundle()
+        Log.d("SwipePhotoFragment", "itemId: $itemId")
         bundle.putString("imageUri", images!![itemId].uripath)
         fragment.arguments = bundle
         return fragment
@@ -38,6 +40,7 @@ class ImageFragment : Fragment() {
     ): View? {
         binding = FragmentImageBinding.inflate(inflater, container, false)
         val imageResId = requireArguments().getString("imageUri")
+        Log.d("SwipePhotoFragment", "imageResId: $imageResId")
         Glide.with(binding.imageView.context).load(imageResId).into(binding.imageView)
         return binding.root
     }
