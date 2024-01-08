@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.exercise04.databinding.FragmentSwipePhotoBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,6 +45,10 @@ class SwipePhotoFragment : Fragment() {
 
         var currentItemId = arguments?.getInt("selectedItemId") ?: 0
         Log.d("SwipePhotoFragment", "currentItemId: $currentItemId")
+
+        val images = dataRepo.getList()
+        val viewPager: ViewPager2 = binding.viewPager2
+        viewPager.adapter = ViewPagerAdapterImage(this, images)
     }
 
 
@@ -66,3 +73,24 @@ class SwipePhotoFragment : Fragment() {
     }
 }
 
+class ViewPagerAdapterImage(
+    swipePhotoFragment: SwipePhotoFragment,
+    private val images: MutableList<DataItem>?
+) : FragmentStateAdapter(swipePhotoFragment) {
+
+    override fun getItemCount(): Int {
+        return images?.size ?: 0
+    }
+
+    override fun createFragment(itemId: Int): Fragment {
+        val fragment = ImageFragment()
+        val bundle = Bundle()
+        bundle.putString("imageUri", images!![itemId].uripath)
+        fragment.arguments = bundle
+        return fragment
+    }
+
+
+}
+
+//class ViePagerAdapterImage
