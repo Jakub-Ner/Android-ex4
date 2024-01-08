@@ -1,10 +1,13 @@
 package com.example.exercise04.photos
 
 import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +45,15 @@ class PhotoListFragment : Fragment() {
     private lateinit var adapter: PhotoListAdapter
     private lateinit var recView: RecyclerView
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        dataRepo.setStorage(SHARED_S)
+        adapter.dList.clear()
+        adapter.dList.addAll(dataRepo.getList()!!)
+        adapter.notifyDataSetChanged()
+        Log.d("PhotoListFragment", "onSaveInstanceState")
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,12 +61,14 @@ class PhotoListFragment : Fragment() {
         _binding =
             FragmentPhotoListBinding.inflate(inflater, container, false)
         dataRepo = DataRepo.getinstance(requireContext())
-        dataRepo.setStorage(SHARED_S) // replace with PRIVATE_S to access app-only imgs
+        dataRepo.setStorage(SHARED_S)
+        binding.btnStorageType.text = "App Storage`"
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("PhotoListFragment", "onViewCreated")
         recView = _binding!!.recView
 
         val listener = object : OnItemClickListener {
@@ -89,7 +103,12 @@ class PhotoListFragment : Fragment() {
                 }
             }
 
-        binding.btnAdd.setOnClickListener {
+        binding.btnAddFromGallery.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 200)
+        }
+        binding.btnTakePhoto.setOnClickListener {
             try {
                 val tmpUri = getNewFileUri()
                 val value = File(tmpUri.path!!)
@@ -110,18 +129,38 @@ class PhotoListFragment : Fragment() {
                 Toast.makeText(requireContext(), "CAMERA DOESN'T WORK!", Toast.LENGTH_LONG).show()
             }
         }
+
         binding.btnStorageType.setOnClickListener {
             if (DataRepo.getStorage() == SHARED_S) {
                 dataRepo.setStorage(PRIVATE_S)
-                binding.btnStorageType.text = "App Storage"
+                binding.btnStorageType.text = "Shared Storage"
             } else {
                 dataRepo.setStorage(SHARED_S)
-                binding.btnStorageType.text = "Shared Storage"
+                binding.btnStorageType.text = "App Storage"
             }
             adapter.dList.clear()
             adapter.dList.addAll(dataRepo.getList()!!)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("PhotoListFragment", "onActivityResult1")
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("PhotoListFragment", "onActivityResult2")
+
+//        if (requestCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            200 -> {
+                val selectedImageUri = data?.data
+                Log.d("PhotoListFragment", "selectedImageUri: $selectedImageUri")
+                val data =
+                    requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+                data.edit().putString("image", selectedImageUri.toString()).apply()
+                findNavController().navigate(R.id.action_nav_photo_list_fragment_to_nav_home)
+            }
+        }
+//        }
     }
 
     private fun getNewFileUri(): Uri {
@@ -149,23 +188,4 @@ class PhotoListFragment : Fragment() {
         )
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PhotoListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PhotoListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

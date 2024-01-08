@@ -68,12 +68,19 @@
         <action
             android:id="@+id/action_nav_photo_list_fragment_to_swipePhotoFragment"
             app:destination="@id/swipePhotoFragment" />
+        <action
+            android:id="@+id/action_nav_photo_list_fragment_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
 
     <fragment
         android:id="@+id/swipePhotoFragment"
         android:name="com.example.exercise04.photos.SwipePhotoFragment"
         android:label="fragment_swipe_photo"
-        tools:layout="@layout/fragment_swipe_photo" />
+        tools:layout="@layout/fragment_swipe_photo" >
+        <action
+            android:id="@+id/action_swipePhotoFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 </navigation>

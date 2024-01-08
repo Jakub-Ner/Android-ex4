@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="100dp"
+    android:layout_marginTop="20dp"
     tools:context=".photos.PhotoListFragment">
 
     <Button
@@ -13,23 +13,37 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="External Images" />
+         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btn_add"
+        android:layout_above="@id/buttonsWrapper"
         android:layout_marginTop="40dp"
         tools:listitem="@layout/image_list_row" />
 
-    <Button
-        android:id="@+id/btn_add"
+    <LinearLayout
+        android:id="@+id/buttonsWrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Add new photo" />
+        >
+
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="Take a photo" />
+
+        <Button
+            android:id="@+id/btn_add_from_gallery"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Open gallery" />
+    </LinearLayout>
 
 </RelativeLayout>

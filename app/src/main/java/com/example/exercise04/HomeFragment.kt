@@ -1,5 +1,6 @@
 package com.example.exercise04
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.exercise04.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -21,9 +23,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +40,14 @@ class HomeFragment : Fragment() {
 
         sharedViewModel.sharedText2.observe(viewLifecycleOwner) { newText ->
             textView.text = newText
+        }
+
+        val data = requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val selectedImage = data.getString("image", "")
+        if (selectedImage != "") {
+            Glide.with(this).load(selectedImage).into(binding.imageView2)
+        } else {
+            binding.imageView2.setImageResource(R.drawable.main_img)
         }
     }
 
